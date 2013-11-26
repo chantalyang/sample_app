@@ -12,7 +12,12 @@ class StaticPagesController < ApplicationController
   def help
   end
 
+  #Method to render about page
   def about
+  end
+
+  #Method to render contact page
+  def contact
   end
 
 
