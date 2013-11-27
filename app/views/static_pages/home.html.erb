@@ -1,23 +1,18 @@
-<!--HTML file for Home Page
+<!--HTML file for Home Page -->
 
 
-<h1>Sample App</h1> <!--Sample App Heading (Top Level) -->
-<p> <!-- Paragraph tag-
-This if the home page for the <!-- Text for paragraph-
-<a href="http://railstutorial.org">Ruby on Rails Tutorial<a
-> sample application</p> <!--continuation of text for paragraph-
-<!-- LINK (anchor) TAG: 
-<a href="link/url"> link title </a> -->
+<div class="center hero-unit">
+<h1>Welcome to the Sample App</h1>
 
+<h2>
+This is the home page for the
+<a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
+sample application.
+</h2>
 
-<h1>Sample App</h1>
-<p>
-  This is the home page for the
-  <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
-  sample application.
-</p>
+<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+</div>
 
-
-
-
-</html>
+<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+<!--image_tag parameters (path to image, optional options hash) 
+alt is what is displayed if no image-->
