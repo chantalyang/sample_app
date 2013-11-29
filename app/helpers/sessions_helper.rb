@@ -24,6 +24,7 @@ module SessionsHelper
     #Set @current_user to user corresponding to remember token only if @current_user is undefined
   end
 
+
 def redirect_back_or(default)
     redirect_to(session[:return_to] || default)
     session.delete(:return_to)
