@@ -4,9 +4,26 @@
       <%= link_to "sample app", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "Home",    root_path %></li>
-          <li><%= link_to "Help",    help_path %></li>
-          <li><%= link_to "Sign in", '#' %></li>
+          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "Help", help_path %></li>
+          <% if signed_in? %>
+            <li><%= link_to "Users", '#' %></li> <!-- Link to be filled in later-->
+            <li id="fat-menu" class="dropdown"> <!-- Link to drop down menu -->
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Account <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu"> <!-- Items in drop down menu -->
+                <li><%= link_to "Profile", current_user %></li> <!-- Profile Link -->
+                <li><%= link_to "Settings", '#' %></li> <!-- Setings link (To be filled in later) -->
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Sign out", signout_path, method: "delete" %> <!-- Sign out link -->
+                </li>
+              </ul>
+            </li>
+          <% else %> 
+            <li><%= link_to "Sign in", signin_path %></li> <!-- Link in Side bar = "Sign In" -->
+          <% end %>
         </ul>
       </nav>
     </div>

@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params) #Call the user params method to fetch params   
     if @user.save #If save successful
+      sign_in @user #Sign in user
       flash[:success] = "Welcome to the Sample App!" #Display welcome to the sample app
       redirect_to @user #Redirect to the user show page
     else #Else
