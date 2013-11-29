@@ -1,6 +1,7 @@
 #Contains methods to render pages associated with users
 class UsersController < ApplicationController
    before_action :signed_in_user, only: [:edit, :update]
+   before_action :correct_user,   only: [:edit, :update]
    #Check for singned_in user before edit and update actions
   
   #Method to render View User Page  (Show)	
@@ -34,6 +35,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params) #Call the user params method to fetch params   
     if @user.save #If save successful
+      sign_in @user #Sign in user
       flash[:success] = "Welcome to the Sample App!" #Display welcome to the sample app
       redirect_to @user #Redirect to the user show page
     else #Else
@@ -50,7 +52,16 @@ class UsersController < ApplicationController
 
 #Render signed in user?
 def signed_in_user
+  unless signed_in?
+    store_location
       redirect_to signin_url, notice: "Please sign in." unless signed_in?
     end
+  end
+
+def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
+    end
+
 
 end
