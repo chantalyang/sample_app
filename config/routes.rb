@@ -1,7 +1,12 @@
 SampleApp::Application.routes.draw do
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
   resources :sessions, only: [:new, :create, :destroy] #Show and Edit sessions not needed so restrict to new, create and destroy
   resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
   root  'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'

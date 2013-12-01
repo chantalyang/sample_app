@@ -1,6 +1,7 @@
 #Contains methods to render pages associated with users
 class UsersController < ApplicationController
-   before_action :signed_in_user, only: [:edit, :update] #Check for singned_in user before edit and update actions
+    before_action :signed_in_user,
+                only: [:index, :edit, :update, :destroy, :following, :followers] #Check for singned_in user before edit and update actions
    before_action :correct_user,   only: [:edit, :update] #Check for correct user for edit and update actions
    before_action :admin_user,     only: :destroy #Check for admin user before destroy action
 
@@ -49,6 +50,21 @@ class UsersController < ApplicationController
       render 'new' #Render new page 
     end
   end
+
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.followed_users.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
 
   private #Makes method only available to current class
 
