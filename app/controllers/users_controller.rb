@@ -1,9 +1,15 @@
 #Contains methods to render pages associated with users
 class UsersController < ApplicationController
-   before_action :signed_in_user, only: [:edit, :update]
-   before_action :correct_user,   only: [:edit, :update]
-   #Check for singned_in user before edit and update actions
+   before_action :signed_in_user, only: [:edit, :update] #Check for singned_in user before edit and update actions
+   before_action :correct_user,   only: [:edit, :update] #Check for correct user for edit and update actions
+   before_action :admin_user,     only: :destroy #Check for admin user before destroy action
+
   
+  #Method to render Index Page
+ def index
+  @users = User.paginate(page: params[:page])
+  end
+
   #Method to render View User Page  (Show)	
   def show
   	@user = User.find(params[:id])
@@ -63,5 +69,14 @@ def correct_user
       redirect_to(root_url) unless current_user?(@user)
     end
 
+ def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted."
+    redirect_to users_url
+  end
+
+def admin_user
+      redirect_to(root_url) unless current_user.admin?
+    end
 
 end
